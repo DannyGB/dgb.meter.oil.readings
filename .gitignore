@@ -5,6 +5,7 @@
 
 build/set_env_vars.sh
 .vscode/launch.json
+__debug_bin
 
 # User-specific files
 *.rsuser

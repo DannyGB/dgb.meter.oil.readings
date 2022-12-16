@@ -21,13 +21,10 @@ func (params *PageParams) getOrFilters() []bson.M {
 	if params.Filter != "" {
 
 		orFilter = []bson.M{
-			{"rate": bson.D{{
-				Key: "$regex", Value: primitive.Regex{Pattern: fmt.Sprintf("%s.*", params.Filter), Options: "i"},
-			}}},
 			{"note": bson.D{{
 				Key: "$regex", Value: primitive.Regex{Pattern: fmt.Sprintf("%s.*", params.Filter), Options: "i"},
 			}}},
-			{"readingdate": bson.D{{
+			{"date": bson.D{{
 				Key: "$regex", Value: primitive.Regex{Pattern: fmt.Sprintf("%s.*", params.Filter), Options: "i"},
 			}}},
 		}
@@ -36,7 +33,7 @@ func (params *PageParams) getOrFilters() []bson.M {
 	filterConverted, convErr := strconv.Atoi(params.Filter)
 
 	if convErr == nil {
-		return append(orFilter, bson.M{"reading": filterConverted})
+		return append(orFilter, bson.M{"volume": filterConverted})
 	}
 
 	return orFilter
