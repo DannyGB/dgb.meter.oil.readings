@@ -142,6 +142,9 @@ func (repository *Repository) Update(id interface{}, data bson.M) error {
 	connect(repository.config)
 	coll := repository.getCollection()
 
+	date, _ := time.Parse(time.RFC3339Nano, data["date"].(string))
+	data["date"] = date
+
 	filter := bson.D{{Key: "_id", Value: id}}
 	_, err := coll.ReplaceOne(context.TODO(), filter, data)
 
